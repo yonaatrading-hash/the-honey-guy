@@ -13,9 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Honey Guy | Authentic Ethiopian Forest Honey",
+  title: {
+    default: "The Honey Guy | Authentic Ethiopian Forest Honey",
+    template: "%s | The Honey Guy",
+  },
+
   description:
-    "Discover authentic Ethiopian forest honey harvested using traditional methods. Pure, raw, and delivered with honesty, quality, and care.",
+    "Discover authentic Ethiopian forest honey harvested from traditional forest hives in Ethiopia. Pure, raw honey delivered with honesty, quality, and care.",
 
   keywords: [
     "Ethiopian Honey",
@@ -25,27 +29,31 @@ export const metadata: Metadata = {
     "Pure Honey",
     "The Honey Guy",
     "Ethiopia",
-    "Organic Honey",
     "Beeswax Candles",
   ],
 
   authors: [{ name: "The Honey Guy" }],
-
   creator: "The Honey Guy",
 
   openGraph: {
-    title: "The Honey Guy",
+    title: "The Honey Guy | Authentic Ethiopian Forest Honey",
     description:
-      "Authentic Ethiopian forest honey harvested with care and delivered exactly as nature intended.",
+      "Pure Ethiopian forest honey harvested from traditional forest hives.",
     type: "website",
     locale: "en_US",
+    siteName: "The Honey Guy",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "The Honey Guy",
+    title: "The Honey Guy | Authentic Ethiopian Forest Honey",
     description:
-      "Authentic Ethiopian forest honey harvested with care and delivered exactly as nature intended.",
+      "Pure Ethiopian forest honey harvested from traditional forest hives.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
