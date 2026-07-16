@@ -23,6 +23,7 @@ export default function Story() {
             src="/images/hero-forest.jpg"
             alt="Our Journey"
             fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover transition-transform duration-700 hover:scale-105"
           />
         </motion.div>
