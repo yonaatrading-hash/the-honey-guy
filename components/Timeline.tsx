@@ -2,6 +2,11 @@
 
 import { motion } from "framer-motion";
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 35 },
+  show: { opacity: 1, y: 0 },
+};
+
 export default function Timeline() {
   const steps = [
     {
@@ -32,10 +37,11 @@ export default function Timeline() {
 
         <motion.div
           className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8 }}
         >
           <p className="uppercase tracking-[0.35em] text-amber-700 text-sm">
             Our Journey
@@ -55,20 +61,30 @@ export default function Timeline() {
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.3 }}
               transition={{
-                duration: 0.6,
+                duration: 0.7,
                 delay: index * 0.15,
               }}
-              className="rounded-3xl bg-[#F8F5EE] p-8 hover:-translate-y-2 transition duration-300 shadow-sm"
+              whileHover={{
+                y: -8,
+                scale: 1.02,
+              }}
+              className="group rounded-3xl bg-[#F8F5EE] p-8 shadow-sm transition-all duration-300 hover:shadow-2xl"
             >
-              <span className="text-amber-500 text-4xl font-bold">
+              <motion.span
+                className="text-amber-500 text-4xl font-bold block"
+                whileHover={{
+                  scale: 1.08,
+                }}
+              >
                 {step.number}
-              </span>
+              </motion.span>
 
-              <h3 className="text-2xl font-semibold mt-6 text-amber-900">
+              <h3 className="text-2xl font-semibold mt-6 text-amber-900 transition-colors duration-300 group-hover:text-[#A96A08]">
                 {step.title}
               </h3>
 
