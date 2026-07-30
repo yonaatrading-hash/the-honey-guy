@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -10,7 +11,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", onScroll);
@@ -20,35 +21,56 @@ export default function Navbar() {
   const closeMenu = () => setMenuOpen(false);
 
   const linkStyle =
-    "text-[#4A3520] hover:text-[#A96A08] transition duration-300";
+    "relative text-[#4A3520] transition-colors duration-300 hover:text-[#C68A0A] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-[#D89B1D] after:transition-all after:duration-300 hover:after:w-full";
 
   return (
-    <nav
-      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl rounded-2xl z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/30 backdrop-blur-2xl border border-white/30 shadow-lg"
-          : "bg-white/10 backdrop-blur-md border border-white/20"
-      }`}
-    >
+    <motion.nav
+  initial={{ opacity: 0, y: -20 }}
+  animate={{
+    opacity: 1,
+    y: 0,
+  }}
+  transition={{ duration: 0.6 }}
+  className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50 rounded-full overflow-hidden transition-all duration-700 ${
+    scrolled
+      ? "bg-white/18 backdrop-blur-[34px] border border-white/30 shadow-[0_25px_70px_rgba(0,0,0,0.18)] py-0"
+      : "bg-transparent border-transparent shadow-none py-2"
+  }`}
+>
+     {scrolled && (
+  <>
+    <div className="absolute inset-0 pointer-events-none rounded-full bg-gradient-to-br from-white/35 via-white/10 to-transparent" />
+
+    <div className="absolute top-0 left-0 h-px w-full bg-white/60" />
+
+    <div className="absolute bottom-0 left-0 h-10 w-full bg-gradient-to-t from-white/5 to-transparent" />
+  </>
+)}
       <div
-        className={`flex items-center justify-between px-6 transition-all duration-300 ${
-          scrolled ? "py-1" : "py-1.5"
+        className={`relative flex items-center justify-between px-6 transition-all duration-300 ${
+          scrolled ? "py-1" : "py-3"
         }`}
       >
         {/* Logo */}
-        <a href="#">
+        <motion.a
+          href="#"
+          whileHover={{
+            scale: 1.05,
+            rotate: -2,
+          }}
+          transition={{ duration: 0.25 }}
+        >
           <Image
             src="/images/logo.png"
             alt="The Honey Guy"
-            width={80}
-            height={80}
+            width={scrolled ? 62 : 72}
+height={scrolled ? 62 : 72}
             priority
-            className="h-auto"
           />
-        </a>
+        </motion.a>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-8 font-medium">
+        <ul className="hidden md:flex items-center gap-8 font-medium">
           <li>
             <a href="#" className={linkStyle}>
               Home
@@ -75,12 +97,13 @@ export default function Navbar() {
         </ul>
 
         {/* Mobile Button */}
-        <button
+        <motion.button
+          whileTap={{ scale: 0.9 }}
           className="md:hidden text-[#4A3520]"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        </motion.button>
       </div>
 
       {/* Mobile Menu */}
@@ -89,7 +112,7 @@ export default function Navbar() {
           menuOpen ? "max-h-80" : "max-h-0"
         }`}
       >
-        <div className="flex flex-col px-6 pb-5 gap-5 font-medium">
+        <div className="flex flex-col gap-5 px-6 pb-5 font-medium">
           <a href="#" onClick={closeMenu} className={linkStyle}>
             Home
           </a>
@@ -107,6 +130,6 @@ export default function Navbar() {
           </a>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }

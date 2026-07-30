@@ -103,7 +103,7 @@ export default function Footer() {
 
           <motion.a
             whileHover={{ y: -3, scale: 1.05 }}
-            href="https://wa.me/251972036179"
+            href="https://wa.me/12147894774?text=Hi%20The%20Honey%20Guy!%20I'm%20interested%20in%20your%20honey."
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 hover:text-amber-300 transition-colors duration-300"

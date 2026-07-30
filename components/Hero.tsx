@@ -57,6 +57,35 @@ export default function Hero() {
 
       </div>
 
+      {/* Golden Sunlight Sweep */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        initial={{ x: "-180%" }}
+        animate={{ x: "180%" }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          repeatDelay: 3,
+          ease: "linear",
+        }}
+      >
+        <div
+          className="
+            absolute
+            top-[-30%]
+            left-0
+            h-[180%]
+            w-72
+            rotate-[22deg]
+            bg-gradient-to-r
+            from-transparent
+            via-[#FFD86B]/35
+            to-transparent
+            blur-[80px]
+          "
+        />
+      </motion.div>
+
       {/* Hero Content */}
       <motion.div
         className="relative z-10 text-center max-w-4xl"
@@ -128,15 +157,13 @@ export default function Hero() {
 
         <motion.button
           whileHover={{
-            y: -3,
-            scale: 1.02,
+            y: -4,
+            scale: 1.03,
           }}
           whileTap={{
             scale: 0.98,
           }}
-          transition={{
-            duration: 0.25,
-          }}
+          transition={{ duration: 0.25 }}
           onClick={() => {
             document
               .getElementById("story")
@@ -144,9 +171,15 @@ export default function Hero() {
                 behavior: "smooth",
               });
           }}
-          className="mt-12 rounded-full bg-[#D89B1D] px-10 py-4 text-lg font-semibold text-white shadow-xl hover:bg-[#A96A08]"
+          className="group relative mt-12 overflow-hidden rounded-full bg-[#D89B1D] px-10 py-4 text-lg font-semibold text-white shadow-[0_10px_40px_rgba(216,155,29,0.35)] transition-all duration-300 hover:bg-[#C8890D] hover:shadow-[0_15px_50px_rgba(216,155,29,0.5)]"
         >
-          Begin the Journey
+          <span className="relative z-10">
+            Begin the Journey
+          </span>
+
+          <span
+            className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+          />
         </motion.button>
 
       </motion.div>

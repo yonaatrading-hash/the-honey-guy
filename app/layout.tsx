@@ -21,22 +21,33 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Authentic Ethiopian forest honey harvested from traditional forest hives. Pure, raw, and delivered with honesty, quality, and care.",
+    "Authentic Ethiopian forest honey harvested from traditional forest hives. Pure, raw, and naturally delicious.",
 
   keywords: [
+    "The Honey Guy",
     "Ethiopian Honey",
     "Forest Honey",
     "Raw Honey",
-    "Natural Honey",
     "Pure Honey",
-    "The Honey Guy",
-    "Ethiopia",
+    "Natural Honey",
     "Organic Honey",
+    "Beeswax",
     "Beeswax Candles",
+    "Ethiopia",
   ],
 
   authors: [{ name: "The Honey Guy" }],
   creator: "The Honey Guy",
+  publisher: "The Honey Guy",
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  alternates: {
+    canonical: "https://the-honey-guy.vercel.app",
+  },
 
   icons: {
     icon: "/favicon.png",
@@ -52,6 +63,7 @@ export const metadata: Metadata = {
     siteName: "The Honey Guy",
     locale: "en_US",
     type: "website",
+
     images: [
       {
         url: "/favicon.png",
@@ -66,7 +78,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Honey Guy | Authentic Ethiopian Forest Honey",
     description:
-      "Pure Ethiopian forest honey delivered straight from nature.",
+      "Discover authentic Ethiopian forest honey harvested with care and respect for nature.",
     images: ["/favicon.png"],
   },
 };
