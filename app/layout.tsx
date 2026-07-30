@@ -38,7 +38,9 @@ export const metadata: Metadata = {
 
   authors: [{ name: "The Honey Guy" }],
   creator: "The Honey Guy",
-
+verification: {
+  google: "0j2H_RM-nEOwI-2ncf29NHAtwEYw4PvmGazk2e1OnGU",
+},
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
