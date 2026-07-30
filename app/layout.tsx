@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,33 +22,22 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Authentic Ethiopian forest honey harvested from traditional forest hives. Pure, raw, and naturally delicious.",
+    "Authentic Ethiopian forest honey harvested from traditional forest hives. Pure, raw, and delivered with honesty, quality, and care.",
 
   keywords: [
-    "The Honey Guy",
     "Ethiopian Honey",
     "Forest Honey",
     "Raw Honey",
-    "Pure Honey",
     "Natural Honey",
-    "Organic Honey",
-    "Beeswax",
-    "Beeswax Candles",
+    "Pure Honey",
+    "The Honey Guy",
     "Ethiopia",
+    "Organic Honey",
+    "Beeswax Candles",
   ],
 
   authors: [{ name: "The Honey Guy" }],
   creator: "The Honey Guy",
-  publisher: "The Honey Guy",
-
-  robots: {
-    index: true,
-    follow: true,
-  },
-
-  alternates: {
-    canonical: "https://the-honey-guy.vercel.app",
-  },
 
   icons: {
     icon: "/favicon.png",
@@ -63,7 +53,6 @@ export const metadata: Metadata = {
     siteName: "The Honey Guy",
     locale: "en_US",
     type: "website",
-
     images: [
       {
         url: "/favicon.png",
@@ -78,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Honey Guy | Authentic Ethiopian Forest Honey",
     description:
-      "Discover authentic Ethiopian forest honey harvested with care and respect for nature.",
+      "Pure Ethiopian forest honey delivered straight from nature.",
     images: ["/favicon.png"],
   },
 };
@@ -94,6 +83,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-[#FFFDF8] text-[#2B2117]">
+        <GoogleAnalytics />
         {children}
       </body>
     </html>
