@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -15,8 +16,29 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        menuOpen &&
+        navRef.current &&
+        !navRef.current.contains(event.target as Node)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -25,27 +47,28 @@ export default function Navbar() {
 
   return (
     <motion.nav
-  initial={{ opacity: 0, y: -20 }}
-  animate={{
-    opacity: 1,
-    y: 0,
-  }}
-  transition={{ duration: 0.6 }}
-  className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50 rounded-full overflow-hidden transition-all duration-700 ${
-    scrolled
-      ? "bg-white/18 backdrop-blur-[34px] border border-white/30 shadow-[0_25px_70px_rgba(0,0,0,0.18)] py-0"
-      : "bg-transparent border-transparent shadow-none py-2"
-  }`}
->
-     {scrolled && (
-  <>
-    <div className="absolute inset-0 pointer-events-none rounded-full bg-gradient-to-br from-white/35 via-white/10 to-transparent" />
+      ref={navRef}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      transition={{ duration: 0.6 }}
+      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50 rounded-full overflow-visible transition-all duration-700 ${
+        scrolled
+          ? "bg-white/18 backdrop-blur-[34px] border border-white/30 shadow-[0_25px_70px_rgba(0,0,0,0.18)] py-0"
+          : "bg-transparent border-transparent shadow-none py-2"
+      }`}
+    >
+      {/* Glass effects when scrolled */}
+      {scrolled && (
+        <>
+          <div className="absolute top-0 left-0 h-px w-full bg-white/60" />
 
-    <div className="absolute top-0 left-0 h-px w-full bg-white/60" />
+          <div className="absolute bottom-0 left-0 h-10 w-full bg-gradient-to-t from-white/5 to-transparent" />
+        </>
+      )}
 
-    <div className="absolute bottom-0 left-0 h-10 w-full bg-gradient-to-t from-white/5 to-transparent" />
-  </>
-)}
       <div
         className={`relative flex items-center justify-between px-6 transition-all duration-300 ${
           scrolled ? "py-1" : "py-3"
@@ -64,7 +87,7 @@ export default function Navbar() {
             src="/images/logo.png"
             alt="The Honey Guy"
             width={scrolled ? 62 : 72}
-height={scrolled ? 62 : 72}
+            height={scrolled ? 62 : 72}
             priority
           />
         </motion.a>
@@ -101,35 +124,59 @@ height={scrolled ? 62 : 72}
           whileTap={{ scale: 0.9 }}
           className="md:hidden text-[#4A3520]"
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
           {menuOpen ? <X size={28} /> : <Menu size={28} />}
         </motion.button>
       </div>
 
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ${
-          menuOpen ? "max-h-80" : "max-h-0"
+      {/* Mobile Glass Menu */}
+      <motion.div
+        initial={false}
+        animate={{
+          opacity: menuOpen ? 1 : 0,
+          y: menuOpen ? 0 : -20,
+        }}
+        transition={{
+          duration: 0.3,
+          ease: "easeOut",
+        }}
+        className={`md:hidden absolute top-full left-0 mt-3 w-full rounded-3xl bg-white/40 backdrop-blur-2xl border border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-visible flex flex-col items-center gap-6 py-8 ${
+          menuOpen ? "visible" : "invisible"
         }`}
       >
-        <div className="flex flex-col gap-5 px-6 pb-5 font-medium">
-          <a href="#" onClick={closeMenu} className={linkStyle}>
-            Home
-          </a>
+        <a
+          href="#"
+          onClick={closeMenu}
+          className="text-lg font-semibold text-[#4A3520] hover:text-[#D89B1D] transition"
+        >
+          Home
+        </a>
 
-          <a href="#story" onClick={closeMenu} className={linkStyle}>
-            Story
-          </a>
+        <a
+          href="#story"
+          onClick={closeMenu}
+          className="text-lg font-semibold text-[#4A3520] hover:text-[#D89B1D] transition"
+        >
+          Story
+        </a>
 
-          <a href="#products" onClick={closeMenu} className={linkStyle}>
-            Collection
-          </a>
+        <a
+          href="#products"
+          onClick={closeMenu}
+          className="text-lg font-semibold text-[#4A3520] hover:text-[#D89B1D] transition"
+        >
+          Collection
+        </a>
 
-          <a href="#contact" onClick={closeMenu} className={linkStyle}>
-            Contact
-          </a>
-        </div>
-      </div>
+        <a
+          href="#contact"
+          onClick={closeMenu}
+          className="text-lg font-semibold text-[#4A3520] hover:text-[#D89B1D] transition"
+        >
+          Contact
+        </a>
+      </motion.div>
     </motion.nav>
   );
 }
